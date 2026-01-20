@@ -28,6 +28,7 @@ jobs:
       fail-fast: false
       matrix:
         containerfile:
+          - castorice
           - tidalcycles
         #- fedora-example # Included as an example to demonstrate multi-image builds, uncomment to build the fedora-example container too
     steps:
@@ -52,7 +53,7 @@ jobs:
         with:
           containerfiles: |
             ./containers/${{ matrix.containerfile }}
-          image: ${{ matrix.containerfile }}
+          image: distroboxes/${{ matrix.containerfile }}
           tags: ${{ env.IMAGE_TAGS }}
           labels: ${{ steps.meta.outputs.labels }}
           oci: true

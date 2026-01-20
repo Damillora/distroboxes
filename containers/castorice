@@ -1,0 +1,15 @@
+FROM quay.io/toolbx/arch-toolbox
+
+LABEL com.github.containers.toolbox="true" \
+      usage="This image is meant to be used with the toolbox or distrobox command" \
+      summary="Action image for Atelier Damillora" \
+      maintainer="developer@damillora.com"
+
+# Copy the setup scripts and package list
+COPY ../scripts/distrobox-shims.sh /
+
+RUN sudo pacman -Syu --noconfirm && sudo pacman -S --noconfirm rust git
+
+# Run the setup scripts
+RUN chmod +x distrobox-shims.sh && /distrobox-shims.sh
+RUN rm /distrobox-shims.sh
